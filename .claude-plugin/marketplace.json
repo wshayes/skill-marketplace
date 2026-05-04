@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "skill-marketplace",
+  "description": "William Hayes' personal collection of Claude Code skills",
+  "owner": {
+    "name": "William Hayes",
+    "email": "whayes@montai.com"
+  },
+  "plugins": [
+    {
+      "name": "gxp-review-general",
+      "description": "General-purpose GxP document and record review skill. Produces structured Critical/Major/Minor/Observation findings against FDA, EU, ICH, and Montai SOPs, with a Word review report deliverable.",
+      "category": "compliance",
+      "source": "./plugins/gxp-review-general",
+      "strict": true
+    }
+  ]
+}

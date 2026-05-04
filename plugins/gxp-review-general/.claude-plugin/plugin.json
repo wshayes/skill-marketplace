@@ -1,0 +1,9 @@
+{
+  "name": "gxp-review-general",
+  "description": "General-purpose GxP document and record review. Classifies findings as Critical/Major/Minor/Observation against FDA, EU, ICH, and applicable Montai SOPs and delivers a Word review report.",
+  "version": "1.0.0",
+  "author": {
+    "name": "William Hayes",
+    "email": "whayes@montai.com"
+  }
+}
