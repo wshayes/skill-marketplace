@@ -1,0 +1,9 @@
+{
+  "name": "executive-pptx",
+  "description": "Create or critique executive PowerPoint presentations using a decision-driven structure: conclusion-titles, one-idea-per-slide, and the hardest objection answered on-slide. Draws on Pyramid Principle, BLUF, SCQA, action titles, MECE, and pre-mortem objection handling.",
+  "version": "1.0.0",
+  "author": {
+    "name": "William Hayes",
+    "email": "whayes@montai.com"
+  }
+}
