@@ -1,18 +1,17 @@
 ---
 name: executive-pptx
-description: "Create or critique executive PowerPoint presentations using a decision-driven structure: conclusion-titles, one-idea-per-slide, and the hardest objection answered on-slide. Draws on the Pyramid Principle, BLUF, SCQA, action-title horizontal logic, the 'so what?' test, Rule of 3, MECE, and pre-mortem objection handling. Use whenever the user is preparing or reviewing slides for a CEO, board, leadership team, steering committee, governance review, or investor update — even for a single slide. Triggers: 'executive deck', 'board slides', 'leadership presentation', 'review my deck', 'tighten this presentation', 'make this more executive', 'CEO-ready slides', 'steering committee', 'pre-read', 'action titles', 'Pyramid Principle', 'critique my deck', and any case where slide content reads as an information dump rather than a recommendation. Use BEFORE branding skills like montai-pptx — structure first, skin second. Use INSTEAD of the generic pptx skill when the audience is senior and the deck must drive a decision."
+description: "Create or critique executive PowerPoint presentations using a decision-driven structure: conclusion-titles, one-idea-per-slide, and the hardest objection answered on-slide. Draws on the Pyramid Principle, BLUF, SCQA, action-title horizontal logic, the 'so what?' test, Rule of 3, MECE, and pre-mortem objection handling. Use whenever the user is preparing or reviewing slides for a CEO, board, leadership team, steering committee, governance review, or investor update — even for a single slide. Triggers: 'executive deck', 'board slides', 'leadership presentation', 'review my deck', 'tighten this presentation', 'make this more executive', 'CEO-ready slides', 'steering committee', 'pre-read', 'action titles', 'Pyramid Principle', 'critique my deck', and any case where slide content reads as an information dump rather than a recommendation. Use BEFORE any company-specific branding/template skill — structure first, skin second. Use INSTEAD of the generic pptx skill when the audience is senior and the deck must drive a decision."
 license: Proprietary
 metadata:
   scope: organization
   version: 1.0.0
   composes_with:
     - pptx
-    - montai-pptx
 ---
 
 # Executive PPTX Skill
 
-Build executive presentations the way senior audiences actually consume them: by reading titles, scanning for the ask, and forming an opinion in 30 seconds. This skill encodes a decision-driven discipline — not a design system. The look-and-feel layer is handled separately by `pptx` (mechanics) and `montai-pptx` (branding).
+Build executive presentations the way senior audiences actually consume them: by reading titles, scanning for the ask, and forming an opinion in 30 seconds. This skill encodes a decision-driven discipline — not a design system. The look-and-feel layer is handled separately by `pptx` (mechanics) and, optionally, a company-specific pptx template skill (branding).
 
 ## Operating principle
 
@@ -48,8 +47,8 @@ Senior audiences will raise the objection regardless. Answering it pre-emptively
 |---|---|
 | Audience is senior; a decision is required or a recommendation is being made | **executive-pptx** (this skill) |
 | Audience is technical/peer; deck is informational, training, or reference | `pptx` |
-| Deck content is already structured and just needs Montai branding | `montai-pptx` |
-| Full workflow: raw content → exec structure → Montai look | `executive-pptx` → `montai-pptx` |
+| Deck content is already structured and just needs company branding applied | your company-specific pptx template skill |
+| Full workflow: raw content → exec structure → company look | `executive-pptx` → your company-specific pptx template skill |
 
 When in doubt, use this skill. The three tests do no harm to non-executive decks; they only make them sharper.
 
@@ -64,7 +63,7 @@ When in doubt, use this skill. The three tests do no harm to non-executive decks
 5. **Decide the slide archetype** for each surviving title. See `references/slide-archetypes.md`. Common archetypes: Recommendation, Evidence, Options Comparison, Trade-off, Risk & Mitigation, Asks & Decisions.
 6. **Pre-mortem objections.** For each recommendation-bearing slide, write the strongest objection and the on-slide answer before composing the slide body. See `references/objection-handling.md`.
 7. **Compose slides.** Use the `pptx` skill for mechanics. Keep slides visually disciplined — one idea expressed with one chart, one table, or one short text block plus the objection-answer treatment.
-8. **Self-critique with `references/critique-mode.md`** before delivering. Then, optionally, re-skin with `montai-pptx`.
+8. **Self-critique with `references/critique-mode.md`** before delivering. Then, optionally, re-skin with a company-specific pptx template skill.
 
 ### Mode B — Critique an existing deck
 
@@ -96,7 +95,7 @@ The three tests are non-negotiable. Everything below is scaffolding that *helps*
 **Author mode** produces:
 - A storyline outline (Markdown) — always created first; this is the deliverable the user reviews before any slides are built.
 - A `.pptx` file — built via the `pptx` skill once the storyline is approved.
-- Optionally, a Montai-branded `.pptx` — produced by running `montai-pptx` on the output.
+- Optionally, a company-branded `.pptx` — produced by running a company-specific pptx template skill on the output.
 
 **Critique mode** produces:
 - A `.docx` or `.md` critique report following `assets/critique-report-template.md`. Includes per-slide findings, severity (Critical / Major / Minor), and rewrite proposals. Default to `.docx` if the user is going to share the critique; default to `.md` if it's for their own use.
@@ -147,6 +146,6 @@ Read on demand:
 This skill is content-discipline. It expects:
 
 - **`pptx`** to do file mechanics (creating the `.pptx`, embedding charts, running visual QA via subagent).
-- **`montai-pptx`** to apply Montai branding *after* the storyline is locked.
+- **A company-specific pptx template skill** (optional) to apply company branding *after* the storyline is locked.
 
 Do not pre-apply branding before the storyline is approved. Re-skinning a deck whose storyline still has gaps wastes effort.

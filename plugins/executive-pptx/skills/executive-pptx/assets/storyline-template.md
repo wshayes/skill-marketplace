@@ -95,4 +95,4 @@ Any "no" → fix the storyline before building slides.
 
 ---
 
-*Once this outline is approved by the user, only then proceed to slide composition via the `pptx` skill. After composition, optionally re-skin with `montai-pptx`.*
+*Once this outline is approved by the user, only then proceed to slide composition via the `pptx` skill. After composition, optionally re-skin with a company-specific pptx template skill.*
