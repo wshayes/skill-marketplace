@@ -131,7 +131,7 @@ Every finding has six required elements:
 2. **Severity** — Critical · Major · Minor · Observation. See `references/severity-and-regulatory.md`.
 3. **Title** — one-line declarative summary.
 4. **Description** — the issue, written so an author can act on it without seeing the full report. Include the specific value, section number, and what is wrong.
-5. **Location** — section or page reference, plus (optional) a verbatim snippet ≤15 words in quotation marks. Hard limits: ≤15 words per snippet, **maximum one snippet per source document** for the entire report.
+5. **Location** — section or page reference, plus (optional) a verbatim snippet ≤15 words in quotation marks. Hard limit: ≤15 words per snippet. Multiple verbatim snippets across findings are allowed and encouraged where they make the finding directly verifiable against the source — there is no cap on the number of snippets per source.
 6. **Reference** — the specific regulatory citation (section level, not just "ICH Q2") **and/or** the specific Montai SOP/Policy clause. Both when both apply.
 
 Order findings: **Critical → Major → Minor → Observation**, then by document section within each severity tier.
@@ -143,7 +143,7 @@ Order findings: **Critical → Major → Minor → Observation**, then by docume
 Before rendering the report, re-read the source and verify each finding:
 
 - [ ] The cited section/page actually exists and contains what the finding claims
-- [ ] Any quoted snippet is verbatim (and ≤15 words; only one per source overall)
+- [ ] Any quoted snippet is verbatim (and ≤15 words per snippet; multiple snippets per source are allowed)
 - [ ] Any numerical claim traces to a specific value or table in the source
 - [ ] The regulatory or SOP reference is correct, current, and section-specific
 
@@ -204,7 +204,7 @@ Do **not** restate the full report in chat. The Word file is the deliverable.
 
 - **Tone** — professional, direct, neutral. Findings state facts; the recommendation states what is needed. No advocacy.
 - **Voice** — third person. "The review identified…" / "The document does not…" — not "I found…".
-- **Quoted text** — sparingly, in quotation marks with section/page reference. Hard limits: ≤15 words per quote, one quote per source for the entire report.
+- **Quoted text** — in quotation marks with section/page reference. Hard limit: ≤15 words per quote. Use verbatim quotes wherever they make a finding directly verifiable against the source; there is no per-source cap on the number of quotes.
 - **People** — full names on first reference. If signing roles aren't named in the document, use placeholders like "Document Owner" / "QA Approver" rather than guessing.
 - **Compounds** — full code on first reference (e.g., `MR-0033809`, `MTAI-1025`); afterward, the short form is fine.
 - **Dates** — ISO format (`2026-04-28`) or `28 Apr 2026`; never US-style numeric (`04/28/2026`) in regulatory text — it's ambiguous to non-US readers.
