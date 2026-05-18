@@ -1,0 +1,9 @@
+{
+  "name": "design-md",
+  "description": "Create, extract, and maintain a project-level DESIGN.md following the Google design.md spec (https://github.com/google-labs-code/design.md). Use whenever building or evolving an application's UI to capture brand, style, tokens, and components in a single human- and agent-readable source of truth — then wire the project's CLAUDE.md to reference it.",
+  "version": "1.0.0",
+  "author": {
+    "name": "William Hayes",
+    "email": "whayes@montai.com"
+  }
+}

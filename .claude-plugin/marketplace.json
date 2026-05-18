@@ -13,6 +13,20 @@
       "category": "compliance",
       "source": "./plugins/gxp-review-general",
       "strict": true
+    },
+    {
+      "name": "executive-pptx",
+      "description": "Create or critique executive PowerPoint presentations using a decision-driven structure: conclusion-titles, one-idea-per-slide, and the hardest objection answered on-slide. Draws on Pyramid Principle, BLUF, SCQA, action titles, MECE, and pre-mortem objection handling.",
+      "category": "productivity",
+      "source": "./plugins/executive-pptx",
+      "strict": true
+    },
+    {
+      "name": "design-md",
+      "description": "Author, extract, and maintain a project-level DESIGN.md following the Google design.md spec. Creates a single source of truth for brand, style, color tokens, typography, spacing, and components — and wires CLAUDE.md to reference it on every design decision.",
+      "category": "productivity",
+      "source": "./plugins/design-md",
+      "strict": true
     }
   ]
 }

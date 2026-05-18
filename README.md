@@ -7,6 +7,8 @@ A [Claude Code](https://claude.com/claude-code) plugin marketplace hosting perso
 | Plugin | Description |
 | --- | --- |
 | [`gxp-review-general`](plugins/gxp-review-general) | Structured Quality / Technical review of any GxP document or record. Classifies findings as Critical / Major / Minor / Observation against FDA, EU, ICH, and Montai SOPs and delivers a Word review report. |
+| [`executive-pptx`](plugins/executive-pptx) | Create or critique executive PowerPoint presentations using a decision-driven structure: conclusion-titles, one-idea-per-slide, the hardest objection answered on-slide. Draws on Pyramid Principle, BLUF, SCQA, action titles, MECE, and pre-mortem objection handling. |
+| [`design-md`](plugins/design-md) | Author, extract, and maintain a project-level `DESIGN.md` following the Google [design.md](https://github.com/google-labs-code/design.md) spec. Creates a single source of truth for brand, color tokens, typography, spacing, and components — and wires `CLAUDE.md` to reference it on every design decision. |
 
 ## Use it
 
@@ -29,6 +31,8 @@ Other supported sources:
 
 ```
 /plugin install gxp-review-general@skill-marketplace
+/plugin install executive-pptx@skill-marketplace
+/plugin install design-md@skill-marketplace
 /reload-plugins
 ```
 
