@@ -1,0 +1,9 @@
+{
+  "name": "herdr",
+  "description": "Drive Herdr, the terminal workspace manager for AI coding agents, from the command line. Manage persistent sessions, workspaces, git worktrees, tabs, and panes, and orchestrate agent terminals (start, send input, read output, wait on status) over Herdr's socket API. Use when working inside a Herdr session or scripting agent orchestration with the `herdr` CLI.",
+  "version": "1.0.0",
+  "author": {
+    "name": "William Hayes",
+    "email": "william.s.hayes@gmail.com"
+  }
+}
