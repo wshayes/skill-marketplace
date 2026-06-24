@@ -9,6 +9,8 @@ A [Claude Code](https://claude.com/claude-code) plugin marketplace hosting perso
 | [`gxp-review-general`](plugins/gxp-review-general) | Structured Quality / Technical review of any GxP document or record. Classifies findings as Critical / Major / Minor / Observation against FDA, EU, ICH, and Montai SOPs and delivers a Word review report. |
 | [`executive-pptx`](plugins/executive-pptx) | Create or critique executive PowerPoint presentations using a decision-driven structure: conclusion-titles, one-idea-per-slide, the hardest objection answered on-slide. Draws on Pyramid Principle, BLUF, SCQA, action titles, MECE, and pre-mortem objection handling. |
 | [`design-md`](plugins/design-md) | Author, extract, and maintain a project-level `DESIGN.md` following the Google [design.md](https://github.com/google-labs-code/design.md) spec. Creates a single source of truth for brand, color tokens, typography, spacing, and components — and wires `CLAUDE.md` to reference it on every design decision. |
+| [`uv`](plugins/uv) | Checks whether the [`uv`](https://github.com/astral-sh/uv) Python package manager is installed and installs it if missing, ensuring it's on `PATH`. Used as a prerequisite by other skills that run Python, or when a `pip install` is requested. |
+| [`html-app`](plugins/html-app) | Build elaborate, self-contained single-file HTML app artifacts for claude.ai using React, TypeScript, Tailwind CSS v4, and shadcn/ui. Scaffolds a Vite project with 56 pre-installed components, then bundles everything (JS, CSS, assets) into one inlined HTML file. _Adapted from Anthropic's [`web-artifacts-builder`](https://github.com/anthropics/skills) (Apache 2.0), modernized to Node 20+ / Tailwind v4 / React 19._ |
 
 ## Use it
 
@@ -33,6 +35,8 @@ Other supported sources:
 /plugin install gxp-review-general@skill-marketplace
 /plugin install executive-pptx@skill-marketplace
 /plugin install design-md@skill-marketplace
+/plugin install uv@skill-marketplace
+/plugin install html-app@skill-marketplace
 /reload-plugins
 ```
 

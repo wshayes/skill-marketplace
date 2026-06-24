@@ -1,0 +1,9 @@
+{
+  "name": "html-app",
+  "description": "Build elaborate, self-contained single-file HTML app artifacts for claude.ai using React, TypeScript, Tailwind CSS v4, and shadcn/ui. Scaffolds a Vite project with 56 pre-installed components, then bundles everything (JS, CSS, assets) into one inlined HTML file. Use for complex artifacts needing state, routing, or shadcn/ui — not for trivial single-file HTML/JSX.",
+  "version": "1.0.0",
+  "author": {
+    "name": "William Hayes",
+    "email": "william.s.hayes@gmail.com"
+  }
+}
