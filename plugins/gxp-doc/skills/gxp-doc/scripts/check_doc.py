@@ -34,7 +34,7 @@ from gxpdoc import (  # noqa: E402
 ERROR, WARN = "error", "warning"
 
 ID_RE = re.compile(
-    r"\b(?:(?:QM|POL|SOP|WI|FRM|LOG|SUP|TQ|CC)-[0-9A-Z]{2,4}(?:-[0-9]{3})?"
+    r"\b(?:(?:QM|POL|SOP|WI|FRM|LOG|SUP|TQ|CC)-[0-9A-Z]{2,4}(?:-[0-9]{2,3})?"
     r"|GXP-[A-Z]{2,4}(?:-[A-Z]{2,5})?-[0-9]{3})\b"
 )
 #: An identifier is resolved if a name follows it, optionally after a section ref.
@@ -425,8 +425,19 @@ def check_toc_and_title(ordered, doc, f):
 
 def check_cross_references(ordered, f):
     """F — an identifier in prose is always followed by a name."""
-    cited = set()
+    cited, in_tables = set(), set()
     for kind, block in ordered:
+        if kind == "t":
+            # A table cell naming SOP-010 -- a Responsibilities grid, a mapping
+            # table -- justifies its References row, so it counts one way only.
+            # It does not oblige a new row: a Revision History entry recording
+            # that GXP-OQ-001 was withdrawn must not re-list a retired document.
+            # F/7 does not apply here either: a cell is a lookup key, not prose,
+            # and the name is the next column over.
+            for row in rows_of(block):
+                for value in row:
+                    in_tables.update(m.group(0) for m in ID_RE.finditer(value or ""))
+            continue
         if kind != "p":
             continue
         text = block.text
@@ -439,10 +450,10 @@ def check_cross_references(ordered, f):
             if not RESOLVED_RE.match(text[match.end():]):
                 f.error("F/7", f"{identifier} cited with no name — write "
                                f"'{identifier} (Short Name)'", text.strip()[:60])
-    return cited
+    return cited, in_tables
 
 
-def check_references(ordered, cited, f):
+def check_references(ordered, cited, in_tables, f):
     """G — a References table, and citations resolve both ways."""
     listed, in_refs, seen_table = set(), False, False
     for kind, block in ordered:
@@ -464,7 +475,7 @@ def check_references(ordered, cited, f):
 
     if not listed:
         return
-    uncited = {r for r in listed if ID_RE.fullmatch(r)} - cited
+    uncited = {r for r in listed if ID_RE.fullmatch(r)} - cited - in_tables
     unlisted = cited - listed
     if unlisted:
         f.error("G/9", f"cited in the body but absent from References: "
@@ -571,8 +582,8 @@ def check(path):
     sections = [heading_text(b) for k, b in ordered if k == "p" and is_level1(b)]
     check_skeleton(sections, doc_type, f)
 
-    cited = check_cross_references(ordered, f)
-    check_references(ordered, cited, f)
+    cited, in_tables = check_cross_references(ordered, f)
+    check_references(ordered, cited, in_tables, f)
     check_approval_and_history(ordered, f)
     check_language(ordered, is_draft, f)
     return f
