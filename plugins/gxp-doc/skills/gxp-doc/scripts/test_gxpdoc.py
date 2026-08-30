@@ -194,6 +194,54 @@ def main():
         # DRAFT suffix is the only place draft state may appear
         build().save(Path(tmp) / "SOP-999_Self_Check_Procedure_v1.0_DRAFT3.docx")
 
+    # -- fields Word must compute on open --------------------------------
+    # A field carries a cached result and python-docx has no layout engine to
+    # compute one, so without w:updateFields every document opens showing the
+    # placeholder text instead of contents and page numbers.
+    settings = built.doc.settings.element.findall(qn("w:updateFields"))
+    assert len(settings) == 1, "exactly one w:updateFields flag"
+    assert settings[0].get(qn("w:val")) == "true", \
+        "Word must be told to refresh fields on open, or the TOC shows its " \
+        "placeholder and the footer reads 'Page 1 of 1'"
+
+    # -- clause styles carry an outline level ------------------------------
+    # TOC \o "1-1" collects by outline level, not by style name. A style based
+    # on Normal inherits "body text", which makes the headings invisible to
+    # the field.
+    for level in (1, 2, 3, 4):
+        ppr = built.doc.styles[f"GxP L{level}"].element.find(qn("w:pPr"))
+        node = None if ppr is None else ppr.find(qn("w:outlineLvl"))
+        assert node is not None, f"GxP L{level} has no outline level"
+        assert node.get(qn("w:val")) == str(level - 1), \
+            f"GxP L{level} must sit at outline level {level - 1}"
+
+    # -- the linter agrees the builder's own output is house style ---------
+    # Guards both directions of G/9: SOP-003 is cited only from a table cell
+    # here, which justifies its References row without demanding new ones.
+    import check_doc  # noqa: PLC0415 -- optional, keeps gxpdoc importable alone
+
+    with tempfile.TemporaryDirectory() as tmp:
+        path = build().save(Path(tmp) / "SOP-999_Self_Check_Procedure_v1.0.docx")
+        findings = check_doc.check(path)
+        # The sample above is a deliberately partial SOP, so D/5 fires on the
+        # sections it omits. Everything the References rules touch must be
+        # silent: SOP-003 is cited only from a table cell here, and that has
+        # to satisfy its References row without demanding a new one.
+        noisy = [i for i in findings.items
+                 if i["rule"].startswith(("F/", "G/"))]
+        assert not noisy, f"cross-reference rules must be silent, got {noisy}"
+
+    # A two-digit sequence suffix is a valid identifier (style guide A):
+    # WI-CSA-01 and FRM-CSA-07 are cited that way throughout a validation set.
+    for identifier in ("WI-CSA-01", "FRM-CSA-07", "SOP-003", "SUP-2026-001",
+                       "GXP-URS-001", "TQ-001"):
+        text = f"{identifier} (Some Name)"
+        match = check_doc.ID_RE.search(text)
+        assert match and match.group(0) == identifier, \
+            f"{identifier} must parse as one identifier, got {match}"
+        assert check_doc.RESOLVED_RE.match(text[match.end():]), \
+            f"{identifier} followed by a name must count as resolved"
+
     print("gxpdoc self-check: all assertions passed")
 
 
