@@ -7,6 +7,7 @@ A [Claude Code](https://claude.com/claude-code) plugin marketplace hosting perso
 | Plugin | Description |
 | --- | --- |
 | [`gxp-review-general`](plugins/gxp-review-general) | Structured Quality / Technical review of any GxP document or record. Classifies findings as Critical / Major / Minor / Observation against FDA, EU, ICH, and Montai SOPs and delivers a Word review report. |
+| [`gxp-doc`](plugins/gxp-doc) | Generate, lint, and retrofit GxP controlled documents as native `.docx`. A `python-docx` builder owns the repeating page header, live page-number fields, clause numbering and table styling so documents cannot drift; a companion linter proves conformance against the bundled style guide. |
 | [`executive-pptx`](plugins/executive-pptx) | Create or critique executive PowerPoint presentations using a decision-driven structure: conclusion-titles, one-idea-per-slide, the hardest objection answered on-slide. Draws on Pyramid Principle, BLUF, SCQA, action titles, MECE, and pre-mortem objection handling. |
 | [`design-md`](plugins/design-md) | Author, extract, and maintain a project-level `DESIGN.md` following the Google [design.md](https://github.com/google-labs-code/design.md) spec. Creates a single source of truth for brand, color tokens, typography, spacing, and components — and wires `CLAUDE.md` to reference it on every design decision. |
 | [`uv`](plugins/uv) | Checks whether the [`uv`](https://github.com/astral-sh/uv) Python package manager is installed and installs it if missing, ensuring it's on `PATH`. Used as a prerequisite by other skills that run Python, or when a `pip install` is requested. |
@@ -33,6 +34,7 @@ Other supported sources:
 
 ```
 /plugin install gxp-review-general@skill-marketplace
+/plugin install gxp-doc@skill-marketplace
 /plugin install executive-pptx@skill-marketplace
 /plugin install design-md@skill-marketplace
 /plugin install uv@skill-marketplace

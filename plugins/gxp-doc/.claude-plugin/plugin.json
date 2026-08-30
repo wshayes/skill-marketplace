@@ -1,0 +1,9 @@
+{
+  "name": "gxp-doc",
+  "description": "Generate, lint, and retrofit GxP controlled documents as native .docx via a python-docx builder. One code path owns the page header, live page-number fields, clause numbering, and table styling, so documents cannot drift; a companion linter proves conformance and reports findings keyed to the style guide.",
+  "version": "1.0.0",
+  "author": {
+    "name": "William Hayes",
+    "email": "william.s.hayes@gmail.com"
+  }
+}

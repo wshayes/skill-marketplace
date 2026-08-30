@@ -15,6 +15,13 @@
       "strict": true
     },
     {
+      "name": "gxp-doc",
+      "description": "Generate, lint, and retrofit GxP controlled documents as native .docx. A python-docx builder owns the repeating page header, live page-number fields, clause numbering and table styling so documents cannot drift, and a companion linter proves conformance against the bundled style guide.",
+      "category": "compliance",
+      "source": "./plugins/gxp-doc",
+      "strict": true
+    },
+    {
       "name": "executive-pptx",
       "description": "Create or critique executive PowerPoint presentations using a decision-driven structure: conclusion-titles, one-idea-per-slide, and the hardest objection answered on-slide. Draws on Pyramid Principle, BLUF, SCQA, action titles, MECE, and pre-mortem objection handling.",
       "category": "productivity",
