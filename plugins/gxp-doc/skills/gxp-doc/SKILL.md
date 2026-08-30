@@ -47,9 +47,17 @@ and clause indents come out identical across every document.
 | See a worked example | `example_sop.py --company "..."` |
 | Build something custom | `import gxpdoc` and use `GxpDoc` |
 
-All scripts run under `uv run --with python-docx --with openpyxl python
-~/.claude/skills/gxp-doc/scripts/<script>` — `python-docx` is deliberately not
-installed into any project; this is QMS tooling, not application code.
+All scripts run under:
+
+```
+uv run --with python-docx --with openpyxl python \
+    ${CLAUDE_PLUGIN_ROOT}/skills/gxp-doc/scripts/<script>
+```
+
+`python-docx` is deliberately not installed into any project — this is QMS
+tooling, not application code. `${CLAUDE_PLUGIN_ROOT}` is set by Claude Code
+to this plugin's install directory; do not hardcode a path, it carries the
+plugin version and changes on upgrade.
 
 `restyle_doc.py --master-list` points at the project's Document Master List
 xlsx (used to resolve References titles); it defaults to
@@ -81,7 +89,7 @@ xlsx (used to resolve References titles); it defaults to
 ## Writing one
 
 ```
-uv run --with python-docx python ~/.claude/skills/gxp-doc/scripts/new_doc.py \
+uv run --with python-docx python ${CLAUDE_PLUGIN_ROOT}/skills/gxp-doc/scripts/new_doc.py \
     --type sop --id SOP-014 --title "Deviation Trending Procedure" \
     --company "Acme Pharma" --approver "A. Approver" -o build/
 ```
@@ -99,7 +107,7 @@ a directory before any approval round:
 
 ```
 uv run --with python-docx --with openpyxl python \
-    ~/.claude/skills/gxp-doc/scripts/check_doc.py docs_qms/*.docx
+    ${CLAUDE_PLUGIN_ROOT}/skills/gxp-doc/scripts/check_doc.py docs_qms/*.docx
 ```
 
 ## Restyling existing documents
