@@ -151,6 +151,25 @@ def _field(paragraph, instruction, placeholder="1", size=9):
     return result
 
 
+def _outline_level(style, level):
+    """Give a clause style an outline level, zero-based.
+
+    Word's contents field collects by outline level, not by style name: a
+    ``TOC \\o "1-1"`` field gathers every paragraph at outline level 1. A
+    custom style based on Normal inherits outline level "body text", so
+    without this the GxP L1 headings are invisible to the field and the
+    contents come back empty -- and the Navigation Pane stays flat. Setting it
+    on the style rather than the paragraph keeps the numbers literal text
+    (J/6c) while still making the structure machine-readable.
+    """
+    ppr = style.element.get_or_add_pPr()
+    for existing in ppr.findall(qn("w:outlineLvl")):
+        ppr.remove(existing)
+    node = OxmlElement("w:outlineLvl")
+    node.set(qn("w:val"), str(level - 1))
+    ppr.append(node)
+
+
 def _shade(cell, fill):
     tc_pr = cell._tc.get_or_add_tcPr()
     shd = OxmlElement("w:shd")
@@ -271,6 +290,7 @@ class GxpDoc:
         self._section_names = []
 
         self._page_setup()
+        self._update_fields_on_open()
         self._define_styles()
         self._build_header()
         self._build_footer()
@@ -285,6 +305,25 @@ class GxpDoc:
             setattr(section, f"{side}_margin", Inches(1))
         section.header_distance = Inches(0.5)
         section.footer_distance = Inches(0.5)
+
+    def _update_fields_on_open(self):
+        """Tell Word to compute every field when the document is opened.
+
+        The contents field and the footer's PAGE/NUMPAGES are real fields, not
+        frozen text -- that is the whole point of B/2 and J/6d. But a field
+        carries a cached result, and python-docx cannot compute one: it has no
+        layout engine, so it cannot know what page a heading lands on. Without
+        this flag the cache is the placeholder, and every document opens
+        reading "Contents -- update this field to populate" and "Page 1 of 1"
+        until somebody presses F9. Setting w:updateFields makes Word refresh
+        them on open, which is the only place the real values can come from.
+        """
+        settings = self.doc.settings.element
+        for existing in settings.findall(qn("w:updateFields")):
+            settings.remove(existing)
+        flag = OxmlElement("w:updateFields")
+        flag.set(qn("w:val"), "true")
+        settings.append(flag)
 
     def _define_styles(self):
         styles = self.doc.styles
@@ -314,6 +353,7 @@ class GxpDoc:
             fmt.left_indent = _inches(text_x)
             fmt.first_line_indent = _inches(number_x - text_x)
             fmt.tab_stops.add_tab_stop(_inches(text_x), WD_TAB_ALIGNMENT.LEFT)
+            _outline_level(style, level)
             if level == 1:
                 style.font.size = Pt(13)
                 style.font.bold = True
